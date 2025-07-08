@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Embedded Video</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    iframe {
+      width: 80vw;
+      height: 80vh;
+      border: none;
+    }
+
+    #jumpscare {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #jumpscare img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <iframe src="https://drive.google.com/file/d/1hoiDlg8ZLn1VZo9CwnRaKSsGU4Y8Y8Jf/preview" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+  <div id="jumpscare">
+    <img src="https://play-lh.googleusercontent.com/qBiLTYKuDA9aecK01rKoBYMp19lLOSq3xJvLkjTxlLCOJ_blR9ZPvBUblRaKFbDQ8P29" alt="Jumpscare">
+    <audio id="jumpscareSound" src="https://www.myinstants.com/media/sounds/soundwhich-woman-scream-sironboy.mp3"></audio>
+  </div>
+
+  <script>
+    const intervalTime = 60000; // 10 minutes (in milliseconds) — change this as needed
+
+    function showJumpscare() {
+      const jumpscare = document.getElementById("jumpscare");
+      const sound = document.getElementById("jumpscareSound");
+
+      jumpscare.style.display = "flex";
+      sound.play();
+
+      setTimeout(() => {
+        jumpscare.style.display = "none";
+      }, 3000); // show for 3 seconds
+    }
+
+    setInterval(() => {
+      showJumpscare();
+    }, intervalTime);
+  </script>
+
+</body>
+</html>
