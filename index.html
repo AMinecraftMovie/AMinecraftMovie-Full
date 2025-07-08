@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Embedded Video</title>
+  <title>MinecraftCrackMovie - Full</title>
   <style>
     body {
       margin: 0;
@@ -39,31 +39,47 @@
 </head>
 <body>
 
-  <iframe src="https://drive.google.com/file/d/1hoiDlg8ZLn1VZo9CwnRaKSsGU4Y8Y8Jf/preview" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  <iframe id="video" src="https://drive.google.com/file/d/1hoiDlg8ZLn1VZo9CwnRaKSsGU4Y8Y8Jf/preview" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
   <div id="jumpscare">
-    <img src="https://play-lh.googleusercontent.com/qBiLTYKuDA9aecK01rKoBYMp19lLOSq3xJvLkjTxlLCOJ_blR9ZPvBUblRaKFbDQ8P29" alt="Jumpscare">
+    <img src="https://i.imgur.com/mE7PJBo.png" alt="Jumpscare">
     <audio id="jumpscareSound" src="https://www.myinstants.com/media/sounds/soundwhich-woman-scream-sironboy.mp3"></audio>
   </div>
 
   <script>
-    const intervalTime = 600000; // 10 minutes (in milliseconds) — change this as needed
+    const jumpscare = document.getElementById("jumpscare");
+    const sound = document.getElementById("jumpscareSound");
 
     function showJumpscare() {
-      const jumpscare = document.getElementById("jumpscare");
-      const sound = document.getElementById("jumpscareSound");
-
       jumpscare.style.display = "flex";
       sound.play();
-
       setTimeout(() => {
         jumpscare.style.display = "none";
-      }, 3000); // show for 3 seconds
+      }, 3000);
     }
 
-    setInterval(() => {
-      showJumpscare();
-    }, intervalTime);
+    function checkTimeAndTrigger() {
+      const iframe = document.querySelector("iframe");
+      const player = iframe.contentWindow;
+
+      // This only works with a player that supports postMessage API, which Google Drive preview doesn't.
+      // So we simulate by triggering every 10 mins of real time as a fallback
+
+      let elapsed = 0;
+      const interval = setInterval(() => {
+        elapsed += 1000; // 1 second
+        const minutes = Math.floor(elapsed / 60000);
+        const seconds = Math.floor((elapsed % 60000) / 1000);
+
+        if (minutes > 0 && seconds === 0 && minutes % 10 === 0) {
+          showJumpscare();
+        }
+      }, 1000);
+    }
+
+    window.onload = () => {
+      checkTimeAndTrigger();
+    };
   </script>
 
 </body>
